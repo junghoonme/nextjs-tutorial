@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Button, Header } from 'semantic-ui-react';
 import styles from '../../styles/Item.module.css';
 
@@ -12,12 +13,20 @@ export default function Item({ item }) {
     product_type,
     product_link,
   } = item;
-  console.log(image_link);
+
   return (
     <>
       <div className={styles.wrap}>
         <div className={styles.img_item}>
-          <img src={image_link} alt={name} />
+          {image_link && (
+            <Image
+              src={image_link}
+              alt={name}
+              className={styles.item_img}
+              width={160}
+              height={160}
+            />
+          )}
         </div>
         <div className={styles.info_item}>
           <strong className={styles.tit_item}>{name}</strong>
