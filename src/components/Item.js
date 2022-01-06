@@ -15,7 +15,7 @@ export default function Item({ item }) {
   } = item;
 
   return (
-    <>
+    <div>
       <div className={styles.wrap}>
         <div className={styles.img_item}>
           {image_link && (
@@ -40,6 +40,6 @@ export default function Item({ item }) {
       </div>
       <Header as='h3'>Description</Header>
       <p style={{ paddingBottom: 20, fontSize: 18 }}>{description}</p>
-    </>
+    </div>
   );
 }

@@ -9,8 +9,7 @@ export default function Home() {
   const [list, setList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const API_URL =
-    'http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline';
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
     setIsLoading(true);
@@ -18,10 +17,10 @@ export default function Home() {
       setList(res.data);
       setIsLoading(false);
     });
-  }, []);
+  }, [API_URL]);
 
   return (
-    <>
+    <div>
       <Head>
         <title>Next.js Tutorial</title>
         <meta name='description' content='홈커밍'></meta>
@@ -42,6 +41,6 @@ export default function Home() {
           <ItemList list={list.slice(9)} />
         </>
       )}
-    </>
+    </div>
   );
 }
