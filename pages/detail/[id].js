@@ -1,8 +1,16 @@
 import axios from 'axios';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import Item from '../../src/components/Item';
+import Loading from '../../src/components/Loading';
 
 const Post = ({ item, name }) => {
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <Loading />;
+  }
+
   return (
     <>
       {item && (
@@ -23,12 +31,19 @@ export default Post;
 
 // dynamic routing 원하는 페이지 동적 라우팅
 export async function getStaticPaths() {
+  const apiUrl = process.env.apiUrl;
+  const res = await axios.get(apiUrl);
+  const data = res.data;
+
   return {
-    paths: [
-      { params: { id: '419' } },
-      { params: { id: '447' } },
-      { params: { id: '470' } },
-    ],
+    // paths: [
+    //   { params: { id: '419' } },
+    //   { params: { id: '447' } },
+    //   { params: { id: '470' } },
+    // ],
+    paths: data.slice(0, 9).map((item) => ({
+      params: { id: item.id.toString() },
+    })),
     fallback: true,
   };
 }
